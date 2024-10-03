@@ -2,11 +2,11 @@ module example
 
 go 1.21
 
-replace github.com/samber/slog-echo => ../
+replace github.com/michalkurzeja/slog-echo => ../
 
 require (
 	github.com/labstack/echo/v4 v4.10.0
-	github.com/samber/slog-echo v1.0.0
+	github.com/michalkurzeja/slog-echo v1.0.0
 	github.com/samber/slog-formatter v1.0.0
 )
 

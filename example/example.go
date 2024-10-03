@@ -2,15 +2,14 @@ package main
 
 import (
 	"errors"
+	"log/slog"
 	"net/http"
 	"os"
 	"time"
 
-	"log/slog"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	slogecho "github.com/samber/slog-echo"
+	slogecho "github.com/michalkurzeja/slog-echo"
 	slogformatter "github.com/samber/slog-formatter"
 )
 
