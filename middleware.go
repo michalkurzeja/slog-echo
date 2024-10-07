@@ -43,8 +43,6 @@ type Config struct {
 	ClientErrorLevel slog.Level
 	ServerErrorLevel slog.Level
 
-	HandleError bool
-
 	WithUserAgent      bool
 	WithRequestID      bool
 	WithRequestBody    bool
@@ -66,8 +64,6 @@ func New(logger *slog.Logger) echo.MiddlewareFunc {
 		DefaultLevel:     slog.LevelInfo,
 		ClientErrorLevel: slog.LevelWarn,
 		ServerErrorLevel: slog.LevelError,
-
-		HandleError: true,
 
 		WithUserAgent:      false,
 		WithRequestID:      true,
@@ -91,8 +87,6 @@ func NewWithFilters(logger *slog.Logger, filters ...Filter) echo.MiddlewareFunc 
 		DefaultLevel:     slog.LevelInfo,
 		ClientErrorLevel: slog.LevelWarn,
 		ServerErrorLevel: slog.LevelError,
-
-		HandleError: true,
 
 		WithUserAgent:      false,
 		WithRequestID:      true,
@@ -132,13 +126,8 @@ func NewWithConfig(logger *slog.Logger, config Config) echo.MiddlewareFunc {
 
 			err = next(c)
 
-			if config.HandleError && err != nil {
-				if _, ok := err.(*echo.HTTPError); !ok {
-					err = echo.
-						NewHTTPError(http.StatusInternalServerError).
-						WithInternal(err)
-					c.Error(err)
-				}
+			if err != nil {
+				c.Error(err)
 			}
 
 			status := res.Status
